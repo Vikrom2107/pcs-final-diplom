@@ -44,6 +44,10 @@ public class BooleanSearchEngine implements SearchEngine {
                 }
             }
         }
+        // Сортируем общию мапу с результатами поиска
+        for (Map.Entry<String, List<PageEntry>> entry : generalSearch.entrySet()) {
+            Collections.sort(generalSearch.get(entry.getKey()));
+        }
         // Вытаскиваем слова из стоп-листа в массив
         File txtFile = new File("stop-ru.txt");
         if (txtFile.exists()) {
@@ -95,7 +99,6 @@ public class BooleanSearchEngine implements SearchEngine {
     @Override
     public List<PageEntry> search(String word) {
         if (generalSearch.containsKey(word)) {
-            Collections.sort(generalSearch.get(word));
             return generalSearch.get(word);
         }
         return Collections.emptyList();
